@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Current Album Rotation</title>
+
+    <!-- Google Fonts: Cormorant Garamond & Cinzel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?display=swap&family=Cormorant+Garamond:wght@300;400;600&family=Cinzel:wght@400;700"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      /* Base Styles */
+      body {
+        font-family: 'Cormorant Garamond', serif;
+        background-color: #0f0f0f;
+        color: #e0e0e0;
+        margin: 0;
+      }
+      h1 {
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+      }
+      .neon {
+        color: #ccc;
+        text-shadow:
+          0 0 4px rgba(204,204,204,0.9),
+          0 0 8px rgba(170,170,170,0.7),
+          0 0 12px rgba(136,136,136,0.5);
+      }
+      .album-card {
+        background-color: #1a1a1a;
+        border: 1px solid #333;
+        max-width: 260px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .album-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 0 24px rgba(204,204,204,0.6);
+        border-color: rgba(204,204,204,0.8);
+      }
+      .album-cover {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        filter: grayscale(20%);
+        transition: filter 0.4s ease;
+      }
+      .album-card:hover .album-cover {
+        filter: grayscale(0%);
+      }
+      /* Grid Layout */
+      #albums-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, auto);
+        gap: 2.5rem;
+        justify-items: center;
+        align-items: center;
+      }
+      /* Track List */
+      .track-list {
+        margin-top: 0.75rem;
+        list-style: none;
+        padding: 0;
+      }
+      .track-list li {
+        font-size: 0.875rem;
+        color: #aaa;
+        margin: 0.25rem 0;
+        text-align: center;
+      }
+      /* Fun Fact */
+      .fun-fact {
+        margin-top: 0.5rem;
+        color: #9c9c9c;
+        font-size: 0.875rem;
+        font-style: italic;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Hero Header -->
+    <header class="py-16">
+      <h1 class="text-5xl font-bold text-center neon uppercase tracking-wider">
+        Current Album Rotation
+      </h1>
+    </header>
+
+    <!-- Description -->
+    <section class="max-w-3xl mx-auto px-6 mb-16 text-center">
+      <p class="text-gray-400 leading-relaxed text-lg">
+        I often find myself listening to the same albums repeatedly for extended periods of time rather than making playlists. This website is a quick way to share the albums I’m currently entranced by.
+      </p>
+    </section>
+
+    <!-- Album Grid -->
+    <main class="px-6 pb-16">
+      <div id="albums-grid">
+        <!-- Cards will be injected here -->
+      </div>
+    </main>
+
+    <!-- Albums Data & Rendering Script -->
+    <script>
+      const albums = [
+        {
+          id: 1,
+          title: "Phrenology",
+          artist: "The Roots",
+          coverUrl: "covers/phrenology.jpg",
+          releaseYear: 2002,
+          favoriteTracks: ["The Seed (2.0)", "Thought @ Work"],
+          funFact: "Produced almost entirely by Questlove in under a month, Black Thought is a wordsmith",
+          link: "https://open.spotify.com/album/01FOonRYntwISzaCSa7S7p?si=fcyNubQbSBuK4OEm3UaCWg"
+        },
+        {
+          id: 2,
+          title: "Ascenseur pour l'échafaud",
+          artist: "Miles Davis",
+          coverUrl: "covers/ascenseur.jpg",
+          releaseYear: 1958,
+          favoriteTracks: ["Générique", "Sur l'Autoroute"],
+          funFact: "First Jazz noir album, this album is the soundtrack to a French Movie which Davis originally recorded improvisationally while watching scenes from the movie.",
+          link: "https://open.spotify.com/album/0aoOdlpGLfNCUFhQu7UIs2?si=xvsATBKfTQqxpB43jcZVuw"
+        },
+        {
+          id: 3,
+          title: "Team Sleep",
+          artist: "Team Sleep",
+          coverUrl: "covers/teamsleep.jpg",
+          releaseYear: 2005,
+          favoriteTracks: ["Blvd. Nights", "Elizabeth"],
+          funFact: "Chino Moreno (Deftones' Lead Singer) + Zach Hill (Death Grips Drummer/Producer); insane sounds.",
+          link: "https://open.spotify.com/album/4fl7cUJQY1KEPgSg1AmsbY?si=YoTlPatvTIelbMn5OCRbHg"
+        },
+        {
+          id: 4,
+          title: "Portrait of a Time: 2010-2016",
+          artist: "Peter Cat Recording Co.",
+          coverUrl: "covers/portrait.jpg",
+          releaseYear: 2018,
+          favoriteTracks: ["Ghost", "Nonsense"],
+          funFact: "Six years of genre-blending experiments, also PCRC doesn't sound like this album anymore.",
+          link: "https://open.spotify.com/album/2zQLWuvxPSb572kjmeAEYN?si=hsWyxlfmQTqkLoOuZwx4kg"
+        },
+        {
+          id: 5,
+          title: "Jaco Pastorius",
+          artist: "Jaco Pastorius",
+          coverUrl: "covers/pastorius.jpg",
+          releaseYear: 1976,
+          favoriteTracks: ["Come On, Come Over", "Portrait of Tracy"],
+          funFact: "Bass GOD.",
+          link: "https://open.spotify.com/album/6SsT4Zyev0zS7eocL0B72m?si=VX53G9f7TpmWahhwo0FH3w"
+        }
+      ];
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('albums-grid');
+        const positions = { 1: [1,1], 2: [3,1], 3: [2,2], 4: [1,3], 5: [3,3] };
+
+        albums.forEach(album => {
+          const cardLink = document.createElement('a');
+          cardLink.href = album.link;
+          cardLink.target = '_blank';
+          cardLink.rel = 'noopener noreferrer';
+          cardLink.className = 'album-card rounded-lg overflow-hidden';
+
+          const [col, row] = positions[album.id];
+          cardLink.style.gridColumn = col;
+          cardLink.style.gridRow = row;
+
+          // Cover
+          const img = document.createElement('img');
+          img.src = album.coverUrl;
+          img.alt = `${album.title} cover`;
+          img.className = 'album-cover';
+          cardLink.appendChild(img);
+
+          // Info container
+          const info = document.createElement('div');
+          info.className = 'p-4 flex flex-col items-center';
+
+          // Title
+          const titleEl = document.createElement('h2');
+          titleEl.textContent = album.title;
+          titleEl.className = 'text-xl font-semibold mb-2 text-center';
+          info.appendChild(titleEl);
+
+          // Artist & Year
+          const metaEl = document.createElement('p');
+          metaEl.textContent = `${album.artist} · ${album.releaseYear}`;
+          metaEl.className = 'text-sm text-gray-400';
+          info.appendChild(metaEl);
+
+          // Tracks
+          const trackList = document.createElement('ul');
+          trackList.className = 'track-list';
+          album.favoriteTracks.forEach(track => {
+            const li = document.createElement('li');
+            li.textContent = track;
+            trackList.appendChild(li);
+          });
+          info.appendChild(trackList);
+
+          // Fun Fact
+          const factEl = document.createElement('p');
+          factEl.textContent = album.funFact ? `Fun fact: ${album.funFact}` : '';
+          factEl.className = 'fun-fact';
+          info.appendChild(factEl);
+
+          cardLink.appendChild(info);
+          grid.appendChild(cardLink);
+        });
+      });
+    </script>
+  </body>
+</html>
